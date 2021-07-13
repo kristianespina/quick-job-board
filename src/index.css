@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Fira Sans";
+  src: URL("./fonts/FiraSans-Regular.ttf") format("truetype");
+}
+
+body {
+  font-family: "Fira Sans";
+}
