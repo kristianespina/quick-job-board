@@ -39,7 +39,7 @@ const Home = () => {
               <div className="text-2xl font-bold text-white text-center">Subscribe in our mailing list</div>
               <div className="flex flex-row gap-4 content-center justify-center mt-4">
                 <div className="w-96">
-                  <TextInput placeholder="Enter your email address" state={search} setValue={setSearch} />
+                  <TextInput placeholder="Enter your email address" state={search} setValue={setSearch} autofocus />
                 </div>
                 <div>
                   <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
