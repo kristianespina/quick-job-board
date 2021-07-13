@@ -1,0 +1,10 @@
+body {
+  margin: 0;
+}
+.homepage {
+  min-height: 100vh;
+  background: url("../../assets/fullwave.svg");
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
