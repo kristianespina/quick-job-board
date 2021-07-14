@@ -88,9 +88,7 @@ const JobListing = () => {
       };
 
       const csvExporter = new ExportToCsv(options);
-
       csvExporter.generateCsv(data);
-
     }
   }
   /**
