@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useLocation } from "react-router-dom";
 import "./style.scss"
 
 import { apiRequest } from '../../utils/api'
@@ -16,7 +17,11 @@ const JobListing = () => {
   const [page, setPage] = useState(0);
 
   const debouncedSearch = useDebounce(search, 500);
-  const limitPerPage = 4;
+
+  let params = new URLSearchParams(useLocation().search)
+  console.log("params", params.get("position"))
+
+  const limitPerPage = parseInt(process.env.REACT_APP_LIMIT_PER_PAGE);
   const fetchJobList = async (payload) => {
     const options = {
       method: "POST",
@@ -46,6 +51,12 @@ const JobListing = () => {
       limit: parseInt(limitPerPage)
     });
   }, [debouncedSearch, page])
+
+  // OnMount
+  useEffect(() => {
+    setSearch(params.get("position"))
+  }, [])
+
   return (
     <div className="h-screen pt-24 joblistingpage">
 

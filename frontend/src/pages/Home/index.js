@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useHistory } from "react-router-dom";
+
 import "./style.css"
 
 import { PersonWorking } from '../../components/SVG'
@@ -6,7 +8,11 @@ import TextInput from '../../components/TextInput'
 
 const Home = () => {
   const [search, setSearch] = useState("")
+  let history = useHistory();
 
+  const handleSearch = () => {
+    history.push(`/joblisting?position=${search}`)
+  }
   return (
     <div className="h-screen pt-24 homepage">
 
@@ -21,7 +27,7 @@ const Home = () => {
                 <TextInput placeholder="Search for job title, or position" state={search} setValue={setSearch} />
               </div>
               <div>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit" onClick={handleSearch}>
                   Search
                 </button>
               </div>
