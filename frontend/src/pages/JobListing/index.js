@@ -10,6 +10,7 @@ import TextInput from '../../components/TextInput'
 import JobCard from '../../components/JobCard'
 import JobDetails from '../../components/JobDetails'
 import Results from '../../components/Results';
+import { NotFound } from '../../components/SVG';
 
 
 const JobListing = () => {
@@ -148,24 +149,29 @@ const JobListing = () => {
 
       <div className="w-full pb-24">
         <div className="container">
-          <div className="flex flex-row gap-4">
-            <div className="w-5/12 px-12">
-              {jobs.map(data =>
-                <JobCard key={data.id} data={data} onClick={() => setDetails(data)} />
-              )}
-              <div className="inline-flex w-full">
-                <button onClick={handlePrevious} className="w-full bg-gray-200 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">
-                  Previous
-                </button>
-                <button onClick={handleNext} className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
-                  Next
-                </button>
+          {resultsFound > 0 ? (
+            <div className="flex flex-row gap-4">
+              <div className="w-5/12 px-12">
+                {jobs.map(data =>
+                  <JobCard key={data.id} data={data} onClick={() => setDetails(data)} />
+                )}
+                <div className="inline-flex w-full">
+                  <button onClick={handlePrevious} className="w-full bg-gray-200 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">
+                    Previous
+                  </button>
+                  <button onClick={handleNext} className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
+                    Next
+                  </button>
+                </div>
+              </div>
+              <div className="w-7/12">
+                <JobDetails data={details} />
               </div>
             </div>
-            <div className="w-7/12">
-              <JobDetails data={details} />
-            </div>
-          </div>
+          )
+            :
+            <NotFound />
+          }
         </div>
       </div>
 

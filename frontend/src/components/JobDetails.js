@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import moment from "moment";
 import { apiRequest } from '../utils/api'
 
-import { NotFound } from "./SVG"
+import { EmptyDetails } from "./SVG"
 import ApplicantsTable from "./ApplicantsTable"
 
 const JobDetails = ({ data }) => {
@@ -48,7 +48,7 @@ const JobDetails = ({ data }) => {
           {users.length > 0 && <ApplicantsTable users={users} />}
         </div>
         :
-        <NotFound />
+        <EmptyDetails />
       }
     </>
   )
