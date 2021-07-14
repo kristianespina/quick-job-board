@@ -50,7 +50,10 @@ const JobListing = () => {
       skip: limitPerPage * page,
       limit: parseInt(limitPerPage)
     });
-  }, [debouncedSearch, page])
+
+    // Reset Page to 0
+    setPage(0)
+  }, [debouncedSearch, page, limitPerPage])
 
   // OnMount
   useEffect(() => {
