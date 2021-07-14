@@ -25,7 +25,7 @@ const JobListing = () => {
 
 
   // Keep track of last search query
-  const lastQuery = useRef("")
+  const lastQuery = useRef({})
   const limitPerPage = parseInt(process.env.REACT_APP_LIMIT_PER_PAGE);
 
   /**
@@ -36,7 +36,7 @@ const JobListing = () => {
    */
   const fetchJobList = async (payload) => {
     // Skip if the last query is unchanged.
-    if (payload.position === lastQuery.current) return;
+    if (payload.position === lastQuery.current.position && payload.page === lastQuery.current.page) return;
 
     const options = {
       method: "POST",
@@ -48,9 +48,10 @@ const JobListing = () => {
     if (response && response.status === 200) {
       setJobs(response.data.docs)
       setResultsFound(response.data.total)
+      setDetails({})
 
       // Update the reference if and only if the request is successful
-      lastQuery.current = payload.position
+      lastQuery.current = payload
     }
   }
 
