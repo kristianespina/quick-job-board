@@ -58,6 +58,7 @@ const JobListing = () => {
   // OnMount
   useEffect(() => {
     setSearch(params.get("position"))
+    // eslint-disable-next-line
   }, [])
 
   return (

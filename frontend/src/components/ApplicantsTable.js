@@ -31,8 +31,8 @@ const ApplicantsTable = ({ users }) => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {users && users.map((user) => (
-                  <tr key={user.email}>
+                {users && users.map((user, idx) => (
+                  <tr key={user.email + "-" + idx}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="flex-shrink-0 h-10 w-10">
