@@ -149,7 +149,7 @@ const JobListing = () => {
       <div className="w-full pb-24">
         <div className="container">
           <div className="flex flex-row gap-4">
-            <div className="w-5/12 overflow-y-scroll px-12" style={{ maxHeight: "900px" }}>
+            <div className="w-5/12 px-12">
               {jobs.map(data =>
                 <JobCard key={data.id} data={data} onClick={() => setDetails(data)} />
               )}
