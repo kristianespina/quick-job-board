@@ -2,12 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 var cors = require('cors')
 
-DB_USERNAME = "mongouser"
-DB_PASSWORD = "kzQQ69At2A627d35"
-CONNECTION_STRING = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.e7sum.mongodb.net/board`
+require('dotenv').config()
 
 // Connect to mongodb instance
-mongoose.connect(CONNECTION_STRING, { useNewUrlParser: true });
+mongoose.connect(process.env.CONNECTION_STRING, { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 
 // Instantiate express app
@@ -25,5 +23,5 @@ app.use(function (err, req, res, next) {
 
 // listen for requests
 app.listen(process.env.port || 4000, function () {
-  console.log('Ready to Go!');
+  console.log('Backend server is now up and running.');
 });
