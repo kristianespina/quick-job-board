@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useLocation } from "react-router-dom";
 import { ExportToCsv } from 'export-to-csv';
 import "./style.scss"
@@ -21,9 +21,11 @@ const JobListing = () => {
   const [resultsFound, setResultsFound] = useState(-1);
 
   const debouncedSearch = useDebounce(search, 1000);
-
   let params = new URLSearchParams(useLocation().search)
 
+
+  // Keep track of last search query
+  const lastQuery = useRef("")
   const limitPerPage = parseInt(process.env.REACT_APP_LIMIT_PER_PAGE);
 
   /**
@@ -33,6 +35,9 @@ const JobListing = () => {
    * @returns 
    */
   const fetchJobList = async (payload) => {
+    // Skip if the last query is unchanged.
+    if (payload.position === lastQuery.current) return;
+
     const options = {
       method: "POST",
       endpoint: "/jobs/search",
@@ -43,6 +48,9 @@ const JobListing = () => {
     if (response && response.status === 200) {
       setJobs(response.data.docs)
       setResultsFound(response.data.total)
+
+      // Update the reference if and only if the request is successful
+      lastQuery.current = payload.position
     }
   }
 
@@ -110,7 +118,7 @@ const JobListing = () => {
     fetchJobList({
       position: (debouncedSearch || ""),
       page: page + 1,
-      limit: parseInt(limitPerPage)
+      limit: limitPerPage
     });
   }, [debouncedSearch, page, limitPerPage])
 
@@ -119,9 +127,16 @@ const JobListing = () => {
     setPage(0)
   }, [debouncedSearch])
 
-  // OnMount
+  // On Initial Mount
   useEffect(() => {
-    setSearch(params.get("position"))
+    const position = params.get("position")
+    setSearch(position)
+
+    fetchJobList({
+      position: position,
+      page: page + 1,
+      limit: limitPerPage
+    })
     // eslint-disable-next-line
   }, [])
 
