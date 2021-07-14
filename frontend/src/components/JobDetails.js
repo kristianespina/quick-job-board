@@ -1,19 +1,56 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import moment from "moment";
+import { apiRequest } from '../utils/api'
 
-const JobDetails = () => {
+import NotFound from "./NotFound"
+import ApplicantsTable from "./ApplicantsTable"
+
+const JobDetails = ({ data }) => {
+  const [users, setUsers] = useState([])
+
+  /**
+   * Creates an API request on /users/search
+   * 
+   * @param {Object} payload 
+   */
+  const fetchUsers = async (payload) => {
+    const options = {
+      method: "POST",
+      endpoint: "/users/search",
+      payload: payload
+    }
+    const response = await apiRequest(options);
+
+    // Update list
+    if (response && response.status === 200) {
+      setUsers(response.data)
+    }
+  }
+  useEffect(() => {
+    if (data && data.applicants && data.applicants.length) {
+      fetchUsers({
+        users: data.applicants
+      })
+    }
+  }, [data])
   return (
-    <div className="">
-      <p className="text-4xl text-indigo-600 font-bold">Software Engineer</p>
-      <p className="">Orange, Inc.</p>
-      <p className="">National Capital Region</p>
-      <p className="mt-4 mb-4">Posted 5 days ago</p>
-      <button class="bg-indigo-700 hover:bg-indigo-400 text-white font-bold py-2 px-4 rounded" type="submit">
-        Apply
-      </button>
-      <p className="mt-4">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin viverra rutrum arcu, at imperdiet est lobortis accumsan. Mauris purus eros, lobortis id purus elementum, ultricies facilisis augue. Donec vel dolor at eros cursus convallis. Vestibulum ultricies aliquet iaculis. Mauris ullamcorper vestibulum ante vitae elementum. Cras commodo, ante sed laoreet egestas, orci orci fringilla enim, sit amet convallis tortor sem sit amet ligula. In vel nulla fringilla, finibus ante sed, scelerisque leo. Suspendisse dictum nunc dui, id volutpat tellus vestibulum a. Duis ac velit vehicula, commodo ipsum a, efficitur eros.
-      </p>
-    </div >
+    <>
+      {data && data.company ?
+        <div>
+          <p className="text-4xl text-indigo-600 font-bold">{data && data.position}</p>
+          <p className="">{data && data.company}</p>
+          <p className="">{data && data.location}</p>
+          <p className="mt-4 mb-4">{data && data.created_at && moment(data.created_at).fromNow()}</p>
+          <p className="mt-4">
+            {data && data.description}
+          </p>
+
+          {users.length > 0 && <ApplicantsTable users={users} />}
+        </div>
+        :
+        <NotFound />
+      }
+    </>
   )
 }
 
