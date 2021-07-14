@@ -84,6 +84,7 @@ const JobListing = () => {
         useTextFile: false,
         useBom: true,
         useKeysAsHeaders: true,
+        filename: 'jobs'
       };
 
       const csvExporter = new ExportToCsv(options);
