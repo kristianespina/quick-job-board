@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import "./style.css"
 
-import PersonWorking from '../../components/PersonWorking'
+import { PersonWorking } from '../../components/SVG'
 import TextInput from '../../components/TextInput'
 
 const Home = () => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import moment from "moment";
 import { apiRequest } from '../utils/api'
 
-import NotFound from "./NotFound"
+import { NotFound } from "./SVG"
 import ApplicantsTable from "./ApplicantsTable"
 
 const JobDetails = ({ data }) => {
