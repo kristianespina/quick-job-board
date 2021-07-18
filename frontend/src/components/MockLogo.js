@@ -21,9 +21,8 @@ const MockLogo = ({ company }) => {
     Logo0, Logo1, Logo2, Logo3, Logo4, Logo5, Logo6, Logo7, Logo8, Logo9
   ]
   return (
-    <div>
-
-      <img src={hashedLogo[hash]} alt="Logo" />
+    <div className="flex align-center justify-center">
+      <img className="max-h-24" src={hashedLogo[hash]} alt="Logo" />
     </div>
   )
 }

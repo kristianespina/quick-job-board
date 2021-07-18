@@ -4,7 +4,7 @@ import MockLogo from "./MockLogo"
 
 const JobCard = ({ data, onClick }) => {
   return (
-    <div className="card flex flex-row gap-4 px-4 py-4 my-4" onClick={onClick}>
+    <div className="card flex flex-row gap-4 px-4 py-4 my-4 max-h-36" onClick={onClick}>
       <div className="w-5/12">
         <MockLogo company={data && data.company} />
       </div>
